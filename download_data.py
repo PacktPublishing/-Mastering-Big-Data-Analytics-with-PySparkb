@@ -79,5 +79,5 @@ for section in config.sections():
         downloaded_file.extractall(destination_path)
 
     # Remove zip file
-    os.remove(destination_filepath)
     print(' - Removing zip-file "{}"'.format(filename))
+    os.remove(destination_filepath)
