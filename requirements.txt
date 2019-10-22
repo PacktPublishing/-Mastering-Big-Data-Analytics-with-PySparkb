@@ -24,6 +24,8 @@ vincent==0.4.*
 beautifulsoup4==4.7.*
 protobuf==3.7.*
 pyspark==2.4.*
+pyspark-stubs
 xlrd
 requests
 requests_oauthlib
+docker

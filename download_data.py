@@ -1,23 +1,31 @@
-from pathlib import Path
+from pathlib import Path, PurePath
 import configparser
 import os
 import urllib3
 from zipfile import ZipFile
 
 # CONFIGURATIONS / SET UP
+REPO_PATH = Path(__file__).resolve().parent
 # Extract download path for Data Sets
-DATA_SETS_PATH = Path(__file__).resolve().parent / "data-sets"
+DATA_SETS_PATH = REPO_PATH / "data-sets"
+WORK_PATH = REPO_PATH / "work"
 # Set chunk size for downloading (avoid unnecessary loading to memory)
 CHUNK_SIZE = 1024 * 1024  # in bytes
 # Name/location of the data_sets configuration file
-CONFIG_LOCATION = Path(__file__).resolve().parent / "conf" / "data_sets.conf"
+CONFIG_LOCATION = REPO_PATH / "conf" / "data_sets.conf"
 
 # TODO: add check mechanism for seeing if data was already downloaded. No need to re-download data that is already there
+# TODO: make all print statements into loggers
+
+
+def create_dir_if_not_exists(dir_path):
+    if not os.path.exists(dir_path):
+        print("Creating %s directory", PurePath(dir_path).name)
+        os.makedirs(dir_path)
+
 
 # Create data-sets folder if it does not yet exist
-if not os.path.exists(DATA_SETS_PATH):
-    print("Creating data-sets directory\n")
-    os.makedirs(DATA_SETS_PATH)
+create_dir_if_not_exists(DATA_SETS_PATH)
 
 # PROCESSING DATA SETS DEFINED IN CONFIGURATION FILE
 config = configparser.ConfigParser()
@@ -40,16 +48,11 @@ for section in config.sections():
             readme_location=readme_location, license_info=license_info
         )
 
-    # Set download location
-    if destination_path:
-        destination_path = DATA_SETS_PATH / destination_path
-    else:
-        destination_path = DATA_SETS_PATH
-
-    if not os.path.exists(destination_path):
-        print(" - Creating output directory")
-        os.makedirs(destination_path)
-
+    # Set download locations, create directories
+    destination_path = (
+        DATA_SETS_PATH / destination_path if destination_path else DATA_SETS_PATH
+    )
+    create_dir_if_not_exists(destination_path)
     destination_filepath = str(destination_path / filename)
 
     # Create README.MD file (if needed)
@@ -63,21 +66,21 @@ for section in config.sections():
     http = urllib3.PoolManager()
     r = http.request("GET", str(download_path), preload_content=False)
     with open(destination_filepath, "wb") as dest:
-        print(' - Downloading "{}" to "{}"'.format(filename, destination_path))
+        print('Downloading "%s" to "%s"', filename, destination_path)
         while True:
             data = r.read(CHUNK_SIZE)
             print(os.path.getsize(destination_path) / 1024, "KB downloaded!", end="\r")
             if not data:
-                print(" - Finished downloading {}".format(filename))
+                print("Finished downloading %s", filename)
                 break
             dest.write(data)
     r.release_conn()
 
     # Extract zipfile
-    print(' - Extracting "{}"'.format(filename))
     with ZipFile(destination_filepath, "r") as downloaded_file:
+        print('Extracting "%s" to "%s"', downloaded_file.filename, destination_filepath)
         downloaded_file.extractall(destination_path)
 
     # Remove zip file
-    print(' - Removing zip-file "{}"'.format(filename))
+    print('Removing zip-file "%s"', filename)
     os.remove(destination_filepath)

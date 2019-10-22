@@ -1,3 +1,11 @@
+.ipynb_checkpoints/
+*checkpoint.ipynb
+.venv
+/.venv/
+/.idea/
+/data-sets/*
+/work/*
+
 # Repo specific folders to ignore
 data-sets/
 twitter_app/checkpoint_*
