@@ -4,14 +4,8 @@ import requests
 import requests_oauthlib
 import json
 
-# SETTINGS
-# Replace the values below with your own
-# Twitter Consumer API keys
-CONSUMER_KEY = "szt9ytUAMAlEyqHiJH0c8hWas"
-CONSUMER_SECRET = "0m4A3izC3brsO0rto7C2A6Q52BgPVKxTRmbMJvJvdcHsedBVzY"
-# Twitter Access token & access token secret
-ACCESS_TOKEN = "1152234679065595906-9nqvBvHPtxyiTZ7aNDLbHkDHkU7wm5"
-ACCESS_SECRET = "qQUkhyx72Ktz09KJ6j2etRfk4PcaocCtwyt0VtEGEE79U"
+from secrets import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_SECRET
+
 # You may customize the IP and Port, defaults should suffice though
 TCP_IP = "localhost"
 TCP_PORT = 9009
