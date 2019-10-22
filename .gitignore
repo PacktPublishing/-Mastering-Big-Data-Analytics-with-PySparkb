@@ -119,4 +119,4 @@ ENV/
 .idea/
 .vscode/
 .DS_Store
-/Section 6 - NLP and Spark Streaming/twitter_app_temp/secrets.py
+/Section 6 - NLP and Spark Streaming/twitter_app/secrets.py
