@@ -118,5 +118,5 @@ ENV/
 # PyCharm / IDE / IPython / Jupyter stuff
 .idea/
 .vscode/
-.DS_Store
+*.DS_Store
 /Section 6 - NLP and Spark Streaming/twitter_app/secrets.py
