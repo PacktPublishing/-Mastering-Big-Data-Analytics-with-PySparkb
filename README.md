@@ -37,23 +37,41 @@ This Course's Docker image extends the `pyspark-notebook` with the following add
 ### Instructions for use
 
 There are 2 ways to access the Docker container in this course:
-1. Through the bundled `start_jupyter_lab.py` script (recommended to use)
+1. Through the bundled `run_me.py` script (recommended to use)
 2. Through the Docker CLI (only for advanced users)
 
 #### Using the bundled script to run the container
 
 The easiest way to run the container that belongs to this course is by running 
- ```python start_jupyter_lab.py``` from the course's repository. This will automatically
- build the Docker image, set up the Docker container, and the necessary volume mounts. 
+ ```python run_me.py``` from the course's repository. This will automatically
+ build the Docker image, set up the Docker container, download the data, and set up the 
+ necessary volume mounts. 
 
 #### Using Docker CLI
 
-1. __Build the image__  
-```docker build --rm -f "Dockerfile" -t mastering_pyspark_ml:latest .```
+If you rather start the Docker container manually, use the following instructions:
 
-2. __Run the image__  
+1. __Downlad the data__
+```bash
+python download_data.py
+```
+
+2. __Build the image__  
+```bash
+docker build --rm -f "Dockerfile" -t mastering_pyspark_ml:latest .
+```
+
+3. __Run the image__  
 Ensure that you replace `/path/to/mastering_pyspark_ml/repo/` in the following command, and run it in a terminal or command prompt:  
-```docker run  -v /path/to/mastering_pyspark_ml/repo/:/home/jovyan/ --rm -d -p 8888:8888 -p 4040:4040 -p 4041:4041 --name mastering_pyspark_ml mastering_pyspark_ml .```
+```bash
+docker run  -v /path/to/mastering_pyspark_ml/repo/:/home/jovyan/ --rm -d -p 8888:8888 -p 4040:4040 --name mastering_pyspark_ml mastering_pyspark_ml .
+```
 
-3. __Open Jupyter lab once Docker image is running__  
-[http://localhost:8888/lab](http://localhost:8888/lab?token=masteringpysparkml)
+4. __Open Jupyter lab once Docker image is running__  
+Navigate to [http://localhost:8888/lab](http://localhost:8888/lab?token=masteringpysparkml)
+
+#### To Stop the Docker Image
+Once you are ready to shutdown the Docker container, you can use the following command:
+```bash
+docker stop mastering_pyspark_ml
+```

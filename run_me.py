@@ -8,6 +8,9 @@ import docker
 from docker.errors import ImageNotFound
 from requests.exceptions import ConnectionError
 
+from download_data import download
+
+
 logging.basicConfig(
     level=logging.DEBUG, format="%(levelname)-7s  %(name)-19s  %(message)s", style="%"
 )
@@ -116,7 +119,9 @@ class Course:
             # Mount each section
             **{
                 str(section_path): {
-                    "bind": str(self.home / self.short_name / PurePath(section_path).name),
+                    "bind": str(
+                        self.home / self.short_name / PurePath(section_path).name
+                    ),
                     "mode": "rw",
                 }
                 for section_path in list(self.repo_path.glob("Section*"))
@@ -301,12 +306,14 @@ if __name__ == "__main__":
     logger.debug("Ports that will be Exposed: %s", Course.ports)
     logger.debug("Container Tag: %s", Course.tag)
 
+    logger.info("Downloading the data")
+    download()
+
     # Set up the course
     course = Course()
 
     course_url = "http://localhost:{port}/lab?token={token}".format(
-        port=8888,
-        token=re_search('ENV JUPYTER_TOKEN "([\w-]+)"', course.Dockerfile)
+        port=8888, token=re_search('ENV JUPYTER_TOKEN "([\w-]+)"', course.Dockerfile)
     )
 
     logger.info(
