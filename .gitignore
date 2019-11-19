@@ -5,6 +5,7 @@
 /.idea/
 /data-sets/*
 /work/*
+.DS_Store
 
 # Repo specific folders to ignore
 data-sets/

@@ -52,20 +52,20 @@ The easiest way to run the container that belongs to this course is by running
 If you rather start the Docker container manually, use the following instructions:
 
 1. __Downlad the data__
-```bash
-python download_data.py
-```
+    ```bash
+    python download_data.py
+    ```
 
 2. __Build the image__  
-```bash
-docker build --rm -f "Dockerfile" -t mastering_pyspark_ml:latest .
-```
+    ```bash
+    docker build --rm -f "Dockerfile" -t mastering_pyspark_ml:latest .
+    ```
 
 3. __Run the image__  
 Ensure that you replace `/path/to/mastering_pyspark_ml/repo/` in the following command, and run it in a terminal or command prompt:  
-```bash
-docker run  -v /path/to/mastering_pyspark_ml/repo/:/home/jovyan/ --rm -d -p 8888:8888 -p 4040:4040 --name mastering_pyspark_ml mastering_pyspark_ml .
-```
+    ```bash
+    docker run  -v /path/to/mastering_pyspark_ml/repo/:/home/jovyan/ --rm -d -p 8888:8888 -p 4040:4040 --name mastering_pyspark_ml mastering_pyspark_ml .
+    ```
 
 4. __Open Jupyter lab once Docker image is running__  
 Navigate to [http://localhost:8888/lab](http://localhost:8888/lab?token=masteringpysparkml)
