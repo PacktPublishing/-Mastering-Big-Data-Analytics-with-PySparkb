@@ -10,6 +10,9 @@ from requests.exceptions import ConnectionError
 
 from download_data import download
 
+# TODO: fix docker.errors.APIError: 409 Client Error: Conflict ("Conflict. The container name "/mastering-pyspark-ml"
+#  is already in use by container "5e645605bbef237ecabe3366dd512de182ac76505e3ff1cff16fb3d5af748cdf". You have to
+#  remove (or rename) that container to be able to reuse that name.")
 
 logging.basicConfig(
     level=logging.DEBUG, format="%(levelname)-7s  %(name)-19s  %(message)s", style="%"
