@@ -121,3 +121,4 @@ ENV/
 .vscode/
 *.DS_Store
 /Section 6 - NLP and Spark Streaming/twitter_app/secrets.py
+.venv_notebook/
