@@ -20,7 +20,7 @@ FROM jupyter/pyspark-notebook:d4cbf2f80a2a
 ARG AUTHOR="Danny Meijer <chilltake@gmail.com>"
 ARG COURSE_NAME="Mastering Big Data Analytics with Pyspark"
 ARG CONTAINER_NAME="mastering-pyspark-ml"
-ARG VERSION="20191021"
+ARG VERSION="20200418"
 ENV HOME="/home/jovyan"
 
 # Maintain last refresh date as version - for simple version control
@@ -28,17 +28,17 @@ LABEL maintainer=${AUTHOR}
 LABEL version=${VERSION}
 ENV VERSION ${VERSION}
 
-# RUN pip install pyspark==2.4.3
-
 # Install blackcellmagic. Python plugin for formatting Python code
+RUN pip install black
 RUN pip install blackcellmagic
 # To load:
 # %load_ext blackcellmagic
 # To run (once loaded):
 # %%black
-# TODO: make black enabled by default
+# TODO: make black enabled by default: https://neuralcoder.science/Black-Jupyter/
 
 RUN pip install pyspark-stubs
+RUN pip install requests_oauthlib
 
 # TODO: %config IPCompleter.greedy=True
 # https://stackoverflow.com/questions/34853848/jupyter-notebook-greedy-completer-configuration
@@ -52,8 +52,11 @@ RUN pip install pyspark-stubs
 # Enable Jupyter Lab
 ENV SPARK_JUPYTER_ENABLE_LABHOME yes
 
-# # Disable Notebook App Token
+# Disable Notebook App Token
 ENV JUPYTER_TOKEN "masteringpysparkml"
+
+# Ensures spark-submit CLI works
+ENV PATH $PATH:$SPARK_HOME/bin
 
 ## Exposing neccesary ports
 # Jupyter Lab
