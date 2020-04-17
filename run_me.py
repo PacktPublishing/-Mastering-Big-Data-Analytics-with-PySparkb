@@ -77,7 +77,19 @@ def look_ahead(iter_item):
 
 
 class Course:
-    """Class that constructs the Docker environment for the course"""
+    """Class that constructs the environment for this course"""
+    author = "Danny Meijer"
+    copyright = 2020
+
+    find_me_on_the_web = {
+        "LinkedIn": "https://www.linkedin.com/in/dannydatascientist/",
+        "GitHub": "https://github.com/dannymeijer",
+        "Email": "chilltake@gmail.com"
+    }
+
+    @staticmethod
+    def close(self):
+        print("Thank you!")
 
     repo_path = Path(__file__).resolve().parent
 
