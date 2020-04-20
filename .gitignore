@@ -1,5 +1,3 @@
-.ipynb_checkpoints/
-*checkpoint.ipynb
 .venv
 /.venv/
 /.idea/
@@ -85,6 +83,8 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+*.ipynb_checkpoints/
+*checkpoint.ipynb
 
 # pyenv
 .python-version
@@ -129,3 +129,4 @@ ENV/
 *.egg-info
 */bdist.*
 */packaged_application_example/build/lib/src/
+/Section 4 - Machine Learning with Spark MLlib/.ipynb_checkpoints/
