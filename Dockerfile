@@ -1,4 +1,4 @@
-# Script author Danny Meijer - 2019
+# Script author Danny Meijer - 2019/2020
 
 # This Dockerfile is based on the jupyter distributed and maintained pyspark-notebook
 # Github link: https://github.com/jupyter/docker-stacks/blob/master/pyspark-notebook/Dockerfile
@@ -20,7 +20,7 @@ FROM jupyter/pyspark-notebook:d4cbf2f80a2a
 ARG AUTHOR="Danny Meijer <chilltake@gmail.com>"
 ARG COURSE_NAME="Mastering Big Data Analytics with Pyspark"
 ARG CONTAINER_NAME="mastering-pyspark-ml"
-ARG VERSION="20200418"
+ARG VERSION="20200420"
 ENV HOME="/home/jovyan"
 
 # Maintain last refresh date as version - for simple version control
@@ -35,19 +35,9 @@ RUN pip install blackcellmagic
 # %load_ext blackcellmagic
 # To run (once loaded):
 # %%black
-# TODO: make black enabled by default: https://neuralcoder.science/Black-Jupyter/
 
 RUN pip install pyspark-stubs
 RUN pip install requests_oauthlib
-
-# TODO: %config IPCompleter.greedy=True
-# https://stackoverflow.com/questions/34853848/jupyter-notebook-greedy-completer-configuration
-
-# TODO: jupyter_contrib_nbextensions
-# https://github.com/ipython-contrib/jupyter_contrib_nbextensions
-# RUN pip install jupyter_contrib_nbextensions
-# RUN jupyter contrib nbextension install --user
-# jupyter nbextensions_configurator enable --user
 
 # Enable Jupyter Lab
 ENV SPARK_JUPYTER_ENABLE_LABHOME yes
@@ -58,7 +48,7 @@ ENV JUPYTER_TOKEN "masteringpysparkml"
 # Ensures spark-submit CLI works
 ENV PATH $PATH:$SPARK_HOME/bin
 
-## Exposing neccesary ports
+## Exposing necessary ports
 # Jupyter Lab
 EXPOSE 8888/tcp
 # SparkUI ports
